@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import AuthorList from './components/AuthorList.js'
 import BookList from './components/BookList.js'
+import Menu from './components/Menu.js'
 
 
 class App extends React.Component {
@@ -19,7 +20,7 @@ class App extends React.Component {
         axios
             .get('http://127.0.0.1:8000/api/authors/')
             .then(response => {
-                const authors = response.data
+                const authors = response.data.results
                     this.setState(
                     {
                         'authors': authors
@@ -31,7 +32,7 @@ class App extends React.Component {
         axios
             .get('http://127.0.0.1:8000/api/books/')
             .then(response => {
-                const books = response.data
+                const books = response.data.results
                     this.setState(
                     {
                         'books': books
@@ -44,15 +45,17 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <Menu />
+            <div>
                 <AuthorList authors={this.state.authors} />
             <div>
                 <BookList books={this.state.books} />
             </div>
             </div>
+            </div>
         )
-
     }
-
 }
+
 
 export default App;
