@@ -1,48 +1,30 @@
 import React, {Component} from 'react';
+import {HashRouter, BrowserRouter, Route, Routes, Link, Navigate, useLocation, useNavigate} from 'react-router-dom'
 
-class Menu extends React.Component {
+class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = { isOpened: false };
     }
 
     toggleState() {
-        this.setState({ isOpened: this.state.isOpened });
+        this.setState({ isOpened: !this.state.isOpened });
     }
 
     render() {
         console.log( 'isOpened', this.state.isOpened );
-        let menuText;
+        let subMenu;
         if (this.state.isOpened) {
-            menuText = <div> ЗДЕСЬ БУДЕТ МЕНЮ </div>;
-
+            subMenu = <div> <li> <Link to='/'>Авторы</Link> </li>
+            <li> <Link to='/books'>Книги</Link> </li> </div>;
         }
         return (
-            <div onClick={this.toggleState.bind(this)}>
-            МЕНЮ
-            {menuText}
-            </div>
+        <div onClick={this.toggleState.bind(this)}>
+        МЕНЮ
+        {subMenu}
+        </div>
         );
     }
 }
 
 export default Menu;
-
-
-
-//import {Container, Navbar} from 'react-bootstrap'
-//
-//export function Menu()
-//{
-//    return (
-//        <header>
-//            <Navbar bg='dark' variant='dark' expand='lg'>
-//                <Container>
-//                    <Navbar.Brand href='#home'>React Rest Django</Navbar.Brand>
-//                </Container>
-//            </Navbar>
-//        </header>
-//
-//    )
-//}
-//export default Menu;

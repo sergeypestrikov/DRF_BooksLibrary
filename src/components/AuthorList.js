@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 const AuthorItem = ({author}) => {
     return (
         <tr>
@@ -5,7 +7,7 @@ const AuthorItem = ({author}) => {
                 {author.name}
             </td>
             <td>
-                {author.surname}
+                    <Link to={`/authors/${author.id}`}>{author.surname}</Link>
             </td>
             <td>
                 {author.country}

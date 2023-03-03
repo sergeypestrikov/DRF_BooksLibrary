@@ -10,6 +10,9 @@ const BookItem = ({book}) => {
             <td>
                 {book.last_publishing}
             </td>
+            <td>
+                {book.authors}
+            </td>
         </tr>
     )
 }
@@ -18,13 +21,16 @@ const BookList = ({books}) => {
     return (
         <table>
             <th>
-                Название
+                Книга
             </th>
             <th>
                 Год издания
             </th>
             <th>
                 Последнее издание
+            </th>
+            <th>
+                Автор
             </th>
             {books.map((book) => <BookItem book={book} /> )}
         </table>

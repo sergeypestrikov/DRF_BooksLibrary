@@ -2,7 +2,21 @@ import React from 'react'
 import axios from 'axios'
 import AuthorList from './components/AuthorList.js'
 import BookList from './components/BookList.js'
+import AuthorBookList from './components/AuthorBookList.js'
 import Menu from './components/Menu.js'
+import Footer from './components/Footer.js'
+import {HashRouter, BrowserRouter, Route, Routes, Link, Navigate, useLocation, useNavigate} from 'react-router-dom'
+
+
+const NotFound = () => {
+    var {pathname} = useLocation()
+
+    return (
+        <div className='container'>
+            Page '{pathname}' not found
+        </div>
+    )
+}
 
 
 class App extends React.Component {
@@ -20,7 +34,7 @@ class App extends React.Component {
         axios
             .get('http://127.0.0.1:8000/api/authors/')
             .then(response => {
-                const authors = response.data.results
+                const authors = response.data
                     this.setState(
                     {
                         'authors': authors
@@ -32,7 +46,7 @@ class App extends React.Component {
         axios
             .get('http://127.0.0.1:8000/api/books/')
             .then(response => {
-                const books = response.data.results
+                const books = response.data
                     this.setState(
                     {
                         'books': books
@@ -45,13 +59,21 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <BrowserRouter>
                 <Menu />
-            <div>
-                <AuthorList authors={this.state.authors} />
-            <div>
-                <BookList books={this.state.books} />
-            </div>
-            </div>
+                    <nav>
+                    </nav>
+                    <Routes>
+                        <Route exact path='/' element={<Navigate to='/authors' />} />
+                        <Route exact path='/books' element={<BookList books={this.state.books} />} />
+                        <Route path='/authors'>
+                            <Route index element={<AuthorList authors={this.state.authors} />} />
+                            <Route path=':authorId' element={<AuthorBookList books={this.state.books} />} />
+                            </Route>
+                            <Route path='*' element={<NotFound />} />
+                    </Routes>
+                    <Footer />
+                </BrowserRouter>
             </div>
         )
     }
