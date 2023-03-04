@@ -1,4 +1,6 @@
-const BookItem = ({book}) => {
+const BookItem = ({book, authors}) => {
+//    var temp = authors[0].id;
+
     return (
         <tr>
             <td>
@@ -17,7 +19,7 @@ const BookItem = ({book}) => {
     )
 }
 
-const BookList = ({books}) => {
+const BookList = ({books, authors}) => {
     return (
         <table>
             <th>
@@ -32,7 +34,7 @@ const BookList = ({books}) => {
             <th>
                 Автор
             </th>
-            {books.map((book) => <BookItem book={book} /> )}
+            {books.map((book) => <BookItem book={book} authors={authors}/> )}
         </table>
     )
 }

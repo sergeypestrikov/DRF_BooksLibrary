@@ -65,7 +65,7 @@ class App extends React.Component {
                     </nav>
                     <Routes>
                         <Route exact path='/' element={<Navigate to='/authors' />} />
-                        <Route exact path='/books' element={<BookList books={this.state.books} />} />
+                        <Route exact path='/books' element={<BookList books={this.state.books} authors={this.state.authors} />} />
                         <Route path='/authors'>
                             <Route index element={<AuthorList authors={this.state.authors} />} />
                             <Route path=':authorId' element={<AuthorBookList books={this.state.books} />} />
