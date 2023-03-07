@@ -1,3 +1,5 @@
+import React from 'react'
+
 const BookItem = ({book, authors}) => {
 //    var temp = authors[0].id;
 
@@ -18,23 +20,30 @@ const BookItem = ({book, authors}) => {
         </tr>
     )
 }
+//.map(authorId => authors.find(a => a.id === authorId).surname)}
 
 const BookList = ({books, authors}) => {
     return (
         <table>
-            <th>
-                Книга
-            </th>
-            <th>
-                Год издания
-            </th>
-            <th>
-                Последнее издание
-            </th>
-            <th>
-                Автор
-            </th>
-            {books.map((book) => <BookItem book={book} authors={authors}/> )}
+            <thead>
+                <tr>
+                    <th>
+                        Книга
+                    </th>
+                    <th>
+                        Год издания
+                    </th>
+                    <th>
+                        Последнее издание
+                    </th>
+                    <th>
+                        Автор
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {books.map((book) => <BookItem book={book} authors={authors} /> )}
+            </tbody>
         </table>
     )
 }
