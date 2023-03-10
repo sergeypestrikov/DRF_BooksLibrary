@@ -31,7 +31,7 @@ const BookList = ({books, authors}) => {
                         Книга
                     </th>
                     <th>
-                        Год издания
+                        Год
                     </th>
                     <th>
                         Последнее издание
