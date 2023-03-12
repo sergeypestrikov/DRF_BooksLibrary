@@ -6,6 +6,7 @@ import AuthorBookList from './components/AuthorBookList.js'
 import Menu from './components/Menu.js'
 import Footer from './components/Footer.js'
 import LoginForm from './components/LoginForm.js'
+import BookForm from './components/BookForm.js'
 import {HashRouter, BrowserRouter, Route, Routes, Link, Navigate, useLocation, useNavigate} from 'react-router-dom'
 
 
@@ -27,8 +28,27 @@ class App extends React.Component {
         this.state = {
             'authors': [],
             'books': [],
-            'token': ''
+            'token': '',
+            'redirect': false
         }
+    }
+
+    createBook(title, authors){
+        console.log(title, authors)
+
+        let headers = this.getHeaders()
+
+        axios
+            .post('http://127.0.0.1:8000/api/books/', {'title': title, 'authors': authors}, {headers})
+            .then(response => {
+                this.setState({
+                        'redirect': '/books'
+                    }, this.getData)
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     obtainAuthToken(login, password) {
@@ -69,6 +89,10 @@ class App extends React.Component {
     }
 
     getData() {
+        this.setState({
+            'redirect': false
+        })
+
         let headers = this.getHeaders()
 
         axios
@@ -105,6 +129,7 @@ class App extends React.Component {
         return (
             <div>
                 <BrowserRouter>
+                {this.state.redirect ? <Navigate to={this.state.redirect} replace={true} /> : <div/>}
                 <Menu />
                     <nav>
                     <li>
@@ -114,6 +139,7 @@ class App extends React.Component {
                     <Routes>
                         <Route exact path='/' element={<Navigate to='/authors' />} />
                         <Route exact path='/books' element={<BookList books={this.state.books} authors={this.state.authors} />} />
+                        <Route exact path='/create_book' element={<BookForm authors={this.state.authors} createBook={(title, authors) => this.createBook(title, authors)}/>} />
                         <Route exact path='/login' element={<LoginForm obtainAuthToken={(login, password) => this.obtainAuthToken(login, password)} />} />
                         <Route path='/authors'>
                             <Route index element={<AuthorList authors={this.state.authors} />} />

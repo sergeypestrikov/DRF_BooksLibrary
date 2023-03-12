@@ -15,8 +15,12 @@ class Menu extends Component {
         console.log( 'isOpened', this.state.isOpened );
         let subMenu;
         if (this.state.isOpened) {
-            subMenu = <div> <li> <Link to='/'>Авторы</Link> </li>
-            <li> <Link to='/books'>Книги</Link> </li> </div>;
+            subMenu = <div>
+            <li> <Link to='/'>Авторы</Link> </li>
+            <li> <Link to='/books'>Книги</Link> </li>
+            <li> <Link to='/create_book'>Добавить книгу</Link> </li>
+            </div>
+
         }
         return (
         <div onClick={this.toggleState.bind(this)}>

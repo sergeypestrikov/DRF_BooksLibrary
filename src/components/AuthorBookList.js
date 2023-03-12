@@ -8,13 +8,14 @@ const BookItem = ({book}) => {
                 {book.title}
             </td>
             <td>
-                {book.first_publishing}
+                {book.authors}
             </td>
         </tr>
     )
 }
 
 const AuthorBookList = ({books}) => {
+//  Локальная фильтрация по месту
     var {authorId} = useParams()
     var filteredBooks = books.filter((book) => book.authors.includes(parseInt(authorId)))
 
@@ -26,7 +27,7 @@ const AuthorBookList = ({books}) => {
                         Книга
                     </th>
                     <th>
-                        Год первого издания
+                        Автор
                     </th>
                 </tr>
             </thead>
