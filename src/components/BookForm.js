@@ -49,7 +49,6 @@ class BookForm extends React.Component {
                     <input type='text' name='title' placeholder='название книги' value={this.state.login} onChange={(event) => this.handleChange(event)} />
                     <select multiple onChange={(event) => this.handleAuthorsSelect(event)} >
                         {this.props.authors.map((author) => <option value={author.id}>{author.name} {author.surname}</option> )}
-
                     </select>
                     <input type='submit' value='Добавить книгу' />
                 </form>

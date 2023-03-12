@@ -33,9 +33,23 @@ class App extends React.Component {
         }
     }
 
-    createBook(title, authors){
-        console.log(title, authors)
+    deleteBook(bookId) {
+        let headers = this.getHeaders()
 
+        axios
+            .delete(`http://127.0.0.1:8000/api/books/$bookId}`, {headers})
+            .then(response => {
+                this.setState({
+                        'books': this.state.books.filter((book) => book.id != bookId)
+                    })
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    createBook(title, authors){
         let headers = this.getHeaders()
 
         axios
@@ -138,7 +152,7 @@ class App extends React.Component {
                     </nav>
                     <Routes>
                         <Route exact path='/' element={<Navigate to='/authors' />} />
-                        <Route exact path='/books' element={<BookList books={this.state.books} authors={this.state.authors} />} />
+                        <Route exact path='/books' element={<BookList books={this.state.books} authors={this.state.authors} deleteBook={(bookId) => this.deleteBook(bookId)}/>} />
                         <Route exact path='/create_book' element={<BookForm authors={this.state.authors} createBook={(title, authors) => this.createBook(title, authors)}/>} />
                         <Route exact path='/login' element={<LoginForm obtainAuthToken={(login, password) => this.obtainAuthToken(login, password)} />} />
                         <Route path='/authors'>

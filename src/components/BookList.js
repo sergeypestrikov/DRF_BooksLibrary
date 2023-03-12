@@ -1,6 +1,6 @@
 import React from 'react'
 
-const BookItem = ({book, authors}) => {
+const BookItem = ({book, authors, deleteBook}) => {
 //    var temp = authors[0].id;
 
     return (
@@ -17,24 +17,27 @@ const BookItem = ({book, authors}) => {
             <td>
                 {book.authors}
             </td>
+            <td>
+                <button onClick={() => deleteBook(book.id)}> Delete </button>
+            </td>
         </tr>
     )
 }
 //.map(authorId => authors.find(a => a.id === authorId).surname)}
 
-const BookList = ({books, authors}) => {
+const BookList = ({books, authors, deleteBook}) => {
     return (
         <table>
             <thead>
                 <tr>
                     <th>
-                        Книга
+                        Название книги
                     </th>
                     <th>
-                        Год
+                        Год изд
                     </th>
                     <th>
-                        Последнее издание
+                        Посл изд
                     </th>
                     <th>
                         Автор
@@ -42,7 +45,7 @@ const BookList = ({books, authors}) => {
                 </tr>
             </thead>
             <tbody>
-                {books.map((book) => <BookItem book={book} authors={authors} /> )}
+                {books.map((book) => <BookItem book={book} authors={authors} deleteBook={book.id}/> )}
             </tbody>
         </table>
     )
